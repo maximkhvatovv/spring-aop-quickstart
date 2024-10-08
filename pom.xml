@@ -8,6 +8,9 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+
         <java.version>21</java.version>
         <spring-boot-starter-parent.version>3.3.4</spring-boot-starter-parent.version>
     </properties>
@@ -46,8 +49,10 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>6.5.3.Final</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

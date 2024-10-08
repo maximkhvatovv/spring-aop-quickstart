@@ -1,11 +1,14 @@
 package ru.khvatov.pets.aopquickstart.aop;
 
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
+@Slf4j
 public class MyAspect {
 
     /**
@@ -56,4 +59,10 @@ public class MyAspect {
      */
     @Pointcut("execution(public * ru.khvatov.pets.aopquickstart.dao.*Dao.findById(..))")
     public void findAnyDaoMethodById() {}
+
+
+    @Before("isServiceLayer()")
+    public void doLogging() {
+        log.info("Before service method invocation!");
+    }
 }
