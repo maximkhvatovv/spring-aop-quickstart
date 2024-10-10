@@ -10,7 +10,6 @@ public class AopQuickstartApplication {
     public static void main(String[] args) {
         var context = SpringApplication.run(AopQuickstartApplication.class, args);
         CoolService bean = context.getBean("coolService", CoolService.class);
-        bean.doCoolStuff();
+        bean.doCoolStuff(1L, "Mike");
     }
-
 }

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class CoolService {
-    public void doCoolStuff() {
+    public void doCoolStuff(Long id, String name) {
         log.info("Doing cool stuff ...");
     }
 }

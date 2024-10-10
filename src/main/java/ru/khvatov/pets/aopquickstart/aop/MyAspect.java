@@ -1,6 +1,7 @@
 package ru.khvatov.pets.aopquickstart.aop;
 
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -60,9 +61,13 @@ public class MyAspect {
     @Pointcut("execution(public * ru.khvatov.pets.aopquickstart.dao.*Dao.findById(..))")
     public void findAnyDaoMethodById() {}
 
+    private static long COUNTER;
 
-    @Before("isServiceLayer()")
-    public void doLogging() {
-        log.info("Before service method invocation!");
+    @Before(
+        value = "isServiceLayer() && args(id,name,..)",
+        argNames = "joinPoint,id,name"
+    )
+    public void doLogging(JoinPoint joinPoint, Long id, String name) {
+        log.info("Before service method invocation. Id={}, name={}.", id, name);
     }
 }
