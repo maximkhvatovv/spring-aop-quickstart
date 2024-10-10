@@ -2,6 +2,9 @@ package ru.khvatov.pets.aopquickstart.aop;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -69,5 +72,40 @@ public class MyAspect {
     )
     public void doLogging(JoinPoint joinPoint, Long id, String name) {
         log.info("Before service method invocation. Id={}, name={}.", id, name);
+    }
+
+    @AfterReturning(
+        value = "isServiceLayer() && args(id,name,..)",
+        returning = "returnedValue",
+        argNames = "joinPoint,id,name,returnedValue"
+    )
+    public void doLoggingAfterReturning(JoinPoint joinPoint, Long id, String name, Object returnedValue) {
+        log.info("AfterReturning service method invocation. Method args: Id={}, name={}. Returned value: {}", id, name, returnedValue);
+    }
+
+    @AfterThrowing(
+        value = "isServiceLayer() && args(id,name,..)",
+        throwing = "throwing",
+        argNames = "joinPoint,id,name,throwing"
+    )
+    public void doLoggingAfterThrowing(JoinPoint joinPoint, Long id, String name, RuntimeException throwing) {
+        log.info(
+            "AfterThrowing service method invocation. Method args: Id={}, name={}. Throws exception with the following message: {}",
+            id,
+            name,
+            throwing.getMessage()
+        );
+    }
+
+    @After(
+        value = "isServiceLayer() && args(id,name,..)",
+        argNames = "joinPoint,id,name"
+    )
+    public void doLoggingAfter(JoinPoint joinPoint, Long id, String name) {
+        log.info(
+            "After service method invocation. Method args: Id={}, name={}.",
+            id,
+            name
+        );
     }
 }
