@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: aop-quickstart
+server:
+  port: 8077
+logging:
+  level:
+    ru.khvatov.pets.aopquickstart.aop: DEBUG
